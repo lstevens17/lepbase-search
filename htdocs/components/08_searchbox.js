@@ -87,7 +87,7 @@ $(function(){
           contentType: "application/json; charset=utf-8",
           dataType: "json",
           success: function(msg) {
-            if ($("#table")){
+            if ($("#table").length > 0){
           	  $("#table").get(0).options.length = 0;
               $("#table").get(0).options[0] = new Option("All", "multi");
               $.each(msg, function(index, item) {
@@ -106,7 +106,7 @@ $(function(){
 
           },
           error: function() {
-          	if ($("#table")){
+          	if ($("#table").length > 0){
         	  $("#table").get(0).options.length = 0;
               $("#table").get(0).options[0] = new Option("All", "multi");
             }
