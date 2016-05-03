@@ -115,7 +115,7 @@ $(function(){
         });
         return false;
       });
-    }
+    });
     function do_search(search_term){
     	  search_term = search_term ? search_term : $('#term').val();
     	  if (!search_term) return;
