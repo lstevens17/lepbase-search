@@ -16,17 +16,17 @@ function GetQueryStringParams(sParam)
 	// http://jquerybyexample.blogspot.com/2012/05/how-to-get-querystring-value-using.html
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
-    for (var i = 0; i < sURLVariables.length; i++) 
+    for (var i = 0; i < sURLVariables.length; i++)
     {
         var sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] == sParam) 
+        if (sParameterName[0] == sParam)
         {
             return sParameterName[1];
         }
     }
 }
 
-window.onload = function(){
+$(function(){
     var url = window.location.pathname.split('/');
     				url.pop();
     				var prefix = '';
@@ -36,7 +36,7 @@ window.onload = function(){
     $(function() {
           $("#se_q").autocomplete({
                 source: function(request, response) {
-    				$.getJSON(prefix+"autocomplete", { term: request.term, table: $('#search_table').val() }, 
+    				$.getJSON(prefix+"autocomplete", { term: request.term, table: $('#search_table').val() },
               		response);
   				},
                 minLength: 3,
@@ -45,14 +45,14 @@ window.onload = function(){
         		}
             });
          });
-    
+
     if (window.location.pathname.match('search.html')){
     	if (!$("#term").val()){
     		var term = GetQueryStringParams('q');
     		if (term) $("#term").val(decodeURIComponent(term));
     	}
     }
-    
+
     $("#autocompleteForm").on("submit", function (e) {
       e.preventDefault();
     });
@@ -60,7 +60,7 @@ window.onload = function(){
     e.preventDefault();
       window.location = prefix+'search.html'+"?q="+encodeURIComponent($('#se_q').val())+"&sp="+$('#search_table').val();
     });
-	
+
 	  $("#autocompleteForm").submit(function(){do_search();});
       $("#table").change(function(){do_search();});
       $("#page_size").change(function(){do_search();});
@@ -69,7 +69,7 @@ window.onload = function(){
       $(function() {
           $("#term").autocomplete({
                 source: function(request, response) {
-    				$.getJSON("autocomplete", { term: request.term, table: $('#table').val() }, 
+    				$.getJSON("autocomplete", { term: request.term, table: $('#table').val() },
               		response);
   				},
                 minLength: 3,
@@ -78,7 +78,7 @@ window.onload = function(){
         		}
             });
          });
-    
+
       $(function() {
         $.ajax({
           type: "GET",
@@ -89,13 +89,13 @@ window.onload = function(){
           success: function(msg) {
             if ($("#table")){
           	  $("#table").get(0).options.length = 0;
-              $("#table").get(0).options[0] = new Option("All", "multi");   
+              $("#table").get(0).options[0] = new Option("All", "multi");
               $.each(msg, function(index, item) {
               	  $("#table").get(0).options[$("#table").get(0).options.length] = new Option(item, item);
               	  if (index == msg.length-1){
               	    var table = GetQueryStringParams('sp');
                     if (table){
-              	      $('#table option').filter(function() { 
+              	      $('#table option').filter(function() {
     					  return ($(this).val() == table);
 					    }).prop('selected', true);
 					    do_search($("#term").val());
@@ -103,19 +103,19 @@ window.onload = function(){
               	  }
               	  });
               }
-              
+
           },
           error: function() {
           	if ($("#table")){
         	  $("#table").get(0).options.length = 0;
-              $("#table").get(0).options[0] = new Option("All", "multi");   
+              $("#table").get(0).options[0] = new Option("All", "multi");
             }
               console.log("Error: failed to load tables");
           }
         });
         return false;
       });
-    } 
+    }
     function do_search(search_term){
     	  search_term = search_term ? search_term : $('#term').val();
     	  if (!search_term) return;
@@ -154,7 +154,7 @@ window.onload = function(){
            });
         }
 
-function show_results (msg){  
+function show_results (msg){
 	$('#results').empty();
 	var results_txt = msg.count != 1 ? 'results' : 'result';
 	var page_size = $('#page_size').val();
@@ -191,7 +191,7 @@ function show_results (msg){
 				$.each(item.gene.dbs, function(db_i, db_item) {
 					db_i = db_i.toString().hashCode();
 					$('#result_'+index+'_xrefs').append('<div id="result_'+index+'_'+db_i+'" class="lbs_xrefs_db"><span class="lbs_xrefs_db_name">' + db_item + '</span></div>');
-					$.each(item.gene[db_item], function(x_i, x_item) { 
+					$.each(item.gene[db_item], function(x_i, x_item) {
 						x_i = x_i.toString().hashCode();
 						$('#result_'+index+'_'+db_i).append('<div id="result_'+index+'_'+db_i+'_'+x_i+'" class="lbs_xrefs_entry"></div>');
 						$('#result_'+index+'_'+db_i+'_'+x_i).append('<span class="lbs_xref">' + x_item.display_label + '</span>');
@@ -218,7 +218,7 @@ function show_results (msg){
 					$.each(item.gene.transcripts.dbs, function(db_i, db_item) {
 						db_i = db_i.toString().hashCode();
 						$('#result_'+index+'_tsc_xrefs').append('<div id="result_'+index+'_tsc_'+db_i+'" class="lbs_xrefs_db"><span class="lbs_xrefs_db_name">' + db_item + '</span></div>');
-						$.each(item.gene.transcripts[db_item], function(x_i, x_item) { 
+						$.each(item.gene.transcripts[db_item], function(x_i, x_item) {
 							x_i = x_i.toString().hashCode();
 							$('#result_'+index+'_tsc_'+db_i).append('<div id="result_'+index+'_tsc_'+db_i+'_'+x_i+'" class="lbs_xrefs_entry"></div>');
 							$('#result_'+index+'_tsc_'+db_i+'_'+x_i).append('<span class="lbs_xref">' + x_item.display_label + '</span>');
@@ -243,7 +243,7 @@ function show_results (msg){
 				$.each(item.gene.translations.dbs, function(db_i, db_item) {
 					db_i = db_i.toString().hashCode();
 					$('#result_'+index+'_tsl_xrefs').append('<div id="result_'+index+'_tsl_'+db_i+'" class="lbs_xrefs_db"><span class="lbs_xrefs_db_name">' + db_item + '</span></div>');
-					$.each(item.gene.translations[db_item], function(x_i, x_item) { 
+					$.each(item.gene.translations[db_item], function(x_i, x_item) {
 						x_i = x_i.toString().hashCode();
 						$('#result_'+index+'_tsl_'+db_i).append('<div id="result_'+index+'_tsl_'+db_i+'_'+x_i+'" class="lbs_xrefs_entry"></div>');
 						$('#result_'+index+'_tsl_'+db_i+'_'+x_i).append('<span class="lbs_xref">' + x_item.display_label + '</span>');
@@ -277,10 +277,10 @@ function show_results (msg){
 			}
 		}
 	});
-         
-         
+
+
     }
-    
+
        function toggle_wildcards(){
     	  search_term = $('#term').val();
     	  if (search_term.match(/^%/) || search_term.match(/%$/)){
@@ -295,9 +295,9 @@ function show_results (msg){
     function reset_toggle(){
     	  search_term = $('#term').val();
     	  if (search_term.match(/^%/) || search_term.match(/%$/)){
-    	  	  $('#wildcards').prop('checked',true); 
+    	  	  $('#wildcards').prop('checked',true);
     	  }
     	  else {
-    	      $('#wildcards').prop('checked',false); 
+    	      $('#wildcards').prop('checked',false);
     	  }
         }
