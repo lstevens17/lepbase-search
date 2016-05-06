@@ -1,5 +1,5 @@
 #!/usr/bin/perl
- 
+
 use strict;
 use warnings;
 use CGI;
@@ -8,18 +8,18 @@ use DBD::mysql;
 use JSON;
 use List::Util 1.33 'any';
 
- 
+
 # Set database variables
 my $platform = "mysql";
-my $database = "lepbase_search_27_80_2";
-my $host = "flowers.bio.ed.ac.uk";
-my $port = "3307";
+my $database = "lepbase_search_31_84_1";
+my $host = "localhost";
+my $port = "3306";
 my $user = "anonymous";
 
 # write CGI header
 my $cgi = CGI->new();
 print $cgi->header('application/json');
- 
+
 # Connect to database
 my $dsn = "dbi:mysql:$database:$host:$port";
 my $dbh = DBI->connect($dsn, $user);
@@ -55,7 +55,7 @@ my $sth3 = $dbh->prepare(qq{SELECT feature_id as id, string as value FROM $table
 my @query_output;
 my @strings;
 my %query_output;
- 
+
 # Execute the first query
 $sth1->execute();
 while ( my $row = $sth1->fetchrow_hashref ){
@@ -71,7 +71,7 @@ if (@query_output < 1){
 		unless ($query_output{$row->{'value'}}){
 	    	push @strings, lc $row->{'value'};
     		#$row->{'value'} = '2.'.$row->{'value'};
-    		push @query_output, $row; 
+    		push @query_output, $row;
 	   	 	$query_output{$row->{'value'}} = 1;
     	}
 	}
@@ -87,11 +87,10 @@ if (@query_output < 1){
 		    }
 		}
 	}
-	
+
 }
 
 $dbh->disconnect();
- 
+
 # Print results as JSON
 print JSON::to_json(\@query_output);
-
