@@ -1,6 +1,6 @@
 =head1 LICENSE
 
-Copyright [1999-2014] Wellcome Trust Sanger Institute and the EMBL-European Bioinformatics Institute
+Copyright [1999-2016] Wellcome Trust Sanger Institute and the EMBL-European Bioinformatics Institute
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ limitations under the License.
 
 =head1 MODIFICATIONS
 
-Copyright [2014-2015] University of Edinburgh
+Copyright [2014-2016] University of Edinburgh
 
 All modifications licensed under the Apache License, Version 2.0, as above.
 
@@ -29,25 +29,10 @@ package EnsEMBL::Web::Document::Element::SearchBox;
 ### Generates small search box (used in top left corner of pages)
 
 use strict;
-                                                                                
+
 use base qw(EnsEMBL::Web::Document::Element);
 
 ## BEGIN LEPBASE MODIFICATIONS...
-#sub search_options {
-  ## Returns the options for the search dropdown based upon the current species
-#  my $self          = shift;
-#  my $species       = $self->species;
-#  my $species_name  = $species ? $self->species_defs->SPECIES_COMMON_NAME : '';
-#
-#  return [ $species ? (
-#    'ensembl'         => { 'label' => "Search $species_name",   'icon' => "species/16/${species}.png"   }) : (),
-#    'ensembl_all'     => { 'label' => 'Search all species',     'icon' => 'search/ensembl.gif'          },
-#    'ensembl_genomes' => { 'label' => 'Search Ensembl genomes', 'icon' => 'search/ensembl_genomes.gif'  },
-#    'vega'            => { 'label' => 'Search Vega',            'icon' => 'search/vega.gif'             },
-#    'ebi'             => { 'label' => 'Search EBI',             'icon' => 'search/ebi.gif'              },
-#    'sanger'          => { 'label' => 'Search Sanger',          'icon' => 'search/sanger.gif'           }
-#  ];
-#}
 sub search_options {
   my $self          = shift;
   my $species       = $self->species;
@@ -61,17 +46,6 @@ sub search_options {
   ];
 }
 ## ...END LEPBASE MODIFICATIONS
-
-sub default_search_code {
-  ## Returns the search code either set by the user previously by selecting one of the options in the drodpown, or defaults to the one specified in sitedefs
-  return $_[0]->{'_default'} ||= $_[0]->hub->get_cookie_value('ENSEMBL_SEARCH') || $_[0]->species_defs->ENSEMBL_DEFAULT_SEARCHCODE || 'ensembl';
-}
-
-sub species {
-  ## Ignores common and Multi as species names
-  my $species = $_[0]->hub->species;
-  return $species =~ /multi|common/i ? '' : $species;
-}
 
 sub content {
   my $self            = shift;
