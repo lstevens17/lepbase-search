@@ -11,7 +11,7 @@ div#results {
     width: 100%;
 }
 div.lbs_toggle {
-    display:inline-block;
+    display:inline;
 }
 div.lbs_result {
     background-color: [[TINT_BG]];
