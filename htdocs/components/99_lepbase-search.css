@@ -24,7 +24,8 @@ div.lbs_result_header {
     margin-left: -1em;
     margin-bottom: 0.5em;
     height: 2em;
-    padding-top: 0.5em
+    padding-top: 0.5em;
+    color: [[MH_TEXT]];
 }
 div.lbs_species {
     float: right;
