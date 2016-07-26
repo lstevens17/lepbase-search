@@ -82,9 +82,3 @@ span.lbs_small, .lbs_xref, .lbs_xref_desc {
 #search_holder form input {
     border-radius:0;
 }
-
-@media (max-width: 905px) {
-  #masthead .search-holder {
-    top: 42px;
-  }
-}
