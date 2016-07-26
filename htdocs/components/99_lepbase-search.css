@@ -84,7 +84,7 @@ span.lbs_small, .lbs_xref, .lbs_xref_desc {
 }
 
 @media (max-width: 905px) {
-  .search-holder {
+  #masthead .search-holder {
     top: 42px;
   }
 }
