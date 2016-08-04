@@ -280,9 +280,7 @@ function show_results (msg){
 			var url = item.species.production_name;
 			var header = '<div class="lbs_species">' + item.species.production_name + '</div> <span class="lbs_large"><a href="' + url + '"> ' + item.species.production_name + '</a></span>';
 			$('#result_'+index).append('<div class="lbs_result_header">' + header + '</div>');
-			if (msg.count == 1){
-        location.href=region_url;
-      }
+			location.href=url;
 		}
 	});
 
