@@ -84,7 +84,7 @@ while ( my $row = $sth->fetchrow_hashref ){
 	}
 
 	if ($row->{'feature_type'} eq 'species'){
-	  $output{'feature_type'}->{'production_name'} = $row->{'production_name'};
+	  $output{'species'}->{'production_name'} = $row->{'production_name'};
 	}
 	if ($row->{'feature_type'} eq 'seq_region'){
 	    $output{'seq_region'}->{'production_name'} = $row->{'production_name'};
