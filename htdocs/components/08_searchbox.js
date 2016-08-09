@@ -260,7 +260,7 @@ function show_results (msg){
 			var region_url = url + '/Location/View?db=core;r=' + item.seq_region.name
 			if (item.seq_region.coords){
 	    	    region_url += ':' + item.seq_region.coords[0] + '-' + item.seq_region.coords[1];
-	    	    location.href=region_url;
+	    	    if (msg.count == 1) location.href=region_url;
 	    	}
 			else {
 				region_url += ':1-' + item.seq_region.length;
@@ -280,7 +280,7 @@ function show_results (msg){
 			var url = item.species.production_name;
 			var header = '<div class="lbs_species">' + item.species.production_name + '</div> <span class="lbs_large"><a href="' + url + '"> ' + item.species.production_name + '</a></span>';
 			$('#result_'+index).append('<div class="lbs_result_header">' + header + '</div>');
-			location.href=url;
+			if (msg.count == 1) location.href=url;
 		}
 	});
 
